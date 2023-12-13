@@ -1,0 +1,8 @@
+#
+sed "s/ifit_param_value/$1/g" run_single_HCL_parameter_fitting.m > temp0.m
+sed "s/idevice_value/$2/g" temp0.m > temp1.m
+sed "s/idata_type_value/$3/g" temp1.m > temp2.m
+sed "s/participants_value/$4/g" temp2.m > temp_$1_$2_$3_$4.m
+#
+nohup matlab < temp_$1_$2_$3_$4.m > matout_$1_$2_$3_$4 &
+#

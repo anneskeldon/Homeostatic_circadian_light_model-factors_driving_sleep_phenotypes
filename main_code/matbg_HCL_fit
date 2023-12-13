@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Designed specifically to run with data used in the paper.
+# "Method to determine whether sleep phenotypes are driven by endogenous circadian
+# rhythms or environmental light by combining longitudinal data and personalised mathematical models"
+# Skeldon et al, PLoS Comput Biol, provisionally accepted Dec 2023.
+# These data are provided in the folder data_raw.
+#
+# Author: A.C. Skeldon, a.skeldon@surrey.ac.uk, University of Surrey, 2023.
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# This is a shell script that is designed to set up the fitting for each participant and for each
+# of the different fitting cases.
+# The script that runs the job is matbg_HCL_fit_file_edit which includes a line which will be system
+# dependent depending on how Matlab is set up on the local system. 
+# 
+# ifit = 1 (mu,tau), 2 (mu,ca)
+# idev = 1 (Actiwatch), 2 HOBO
+# idatatype  1 = raw, 2 = imputed data 
+# participants
+#
+# syntax e.g.
+# for ipart in 1 
+# for ipart in {1,2,5}
+# for ipart in {1..5}
+#
+for ifit in {1}
+do
+    for idev in {1}
+    do
+        for idatatype in {2}
+        do
+             for ipart in {1..5}
+             do 
+#
+# For server
+    ./matbg_HCL_fit_file_edit "$ifit" "$idev" "$idatatype" "$ipart" 
+#
+             sleep 1
+             done #End participant
+        done #End data type
+    done # End device
+done # End fitype type (mu,tau) or (mu,ca)
+#
